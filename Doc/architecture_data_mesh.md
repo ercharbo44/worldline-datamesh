@@ -825,6 +825,7 @@ Par défaut, les ressources de deux souscriptions distinctes sont isolées sur l
 | **Resource Groups** | 980 | 980 | ⚠️ Planifier si nombreux environnements |
 | **Storage Accounts** | 250 par région | 500 (sur demande) | ✅ Suffisant |
 | **Databricks Workspaces** | Pas de limite hard | N/A | ✅ OK |
+| **Event Hubs Namespaces** | 100 par région | 100 | ✅ Suffisant pour streaming |
 | **VNets** | 1000 | 1000 | ✅ Suffisant |
 | **Peerings par VNet** | 500 | 500 | ⚠️ Hub-spoke recommandé |
 | **Role assignments** | 4000 |4000 | ⚠️ Hard limit |
@@ -848,6 +849,18 @@ Par défaut, les ressources de deux souscriptions distinctes sont isolées sur l
 | Egress | 50-200 Gbps selon région |
 | Containers par compte | Illimité |
 
+#### Limites Azure Event Hubs
+
+| Ressource | Limite (Standard) | Limite (Premium/Dedicated) |
+|-----------|-------------------|----------------------------|
+| Event Hubs par namespace | 10 | 100 |
+| Partitions par Event Hub | 32 | 100 (Premium), 1024 (Dedicated) |
+| Throughput Units (TU) | 40 | Illimité (Dedicated) |
+| Taille max message | 1 MB | 1 MB |
+| Rétention max | 7 jours | 90 jours |
+| Consumer groups par Event Hub | 20 | 100 |
+| Connexions AMQP par namespace | 5,000 | 10,000 |
+
 ### 2.2 Possibilité de déplacer des ressources
 
 #### Matrice de déplacement des ressources
@@ -856,11 +869,14 @@ Par défaut, les ressources de deux souscriptions distinctes sont isolées sur l
 |-------------------|---------------------|---------------------|---------------------|---------------|
 | **Storage Account** | N/A | ✅ Supporté | ✅ Supporté | ❌ Non supporté* |
 | **Azure Databricks Workspace** | N/A | ⚠️ Conditions | ⚠️ Conditions | ❌ Non supporté |
+| **Event Hubs Namespace** | N/A | ✅ Supporté | ✅ Supporté | ❌ Non supporté** |
 | **Key Vault** | N/A | ✅ Supporté | ✅ Supporté | ❌ Non supporté |
 | **Virtual Network** | N/A | ✅ Supporté | ✅ Supporté | ❌ Non supporté |
 | **Azure Data Factory** | N/A | ✅ Supporté | ✅ Supporté | ❌ Non supporté |
 
 *\* Nécessite une migration des données, pas un déplacement*
+
+*\*\* Geo-Disaster Recovery disponible pour la réplication entre régions*
 
 #### Conditions spécifiques pour Databricks
 
